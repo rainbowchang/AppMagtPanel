@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
-  <quadsplit>false</quadsplit>
+  <quadsplit>true</quadsplit>
+  <maxCellWidth>128</maxCellWidth>
+  <maxCellHeight>128</maxCellHeight>
+  <quad>
+    <itemsPerRow>6</itemsPerRow>
+    <maxRowCount>3</maxRowCount>
+  </quad>
+  <single>
+    <itemsPerRow>8</itemsPerRow>
+    <maxRowCount>4</maxRowCount>
+  </single>
   <programs>
     <program>
       <path>C:\Program Files\Google\Chrome\Application\chrome.exe</path>
-      <params>
-        <param>--new-window</param>
-      </params>
-      <name>Chrome</name>
-      <multi>true</multi>
+
+      <name>谷歌浏览器</name>
+      <multi>false</multi>
+    </program>
+    <program>
+      <path>C:\code\TRAE\MultiScreen\TestProgram\bin\Release\net8.0-windows\publish\win-x64\TestProgram.exe</path>
+
+      <multi>false</multi>
+    </program>
+    <program>
+      <path>C:\code\TRAE\MultiScreen\TestProgram\bin\Release\net8.0-windows\publish\win-x64\TestProgram.exe</path>
+      <name>Test2</name>
+      <multi>false</multi>
+    </program>
+    <program>
+      <path>C:\Windows\System32\notepad.exe</path>
+      <name>Notepad</name>
+      <multi>false</multi>
+    </program>
+    <program>
+      <path>C:\Windows\System32\notepad.exe</path>
+      <name>Notepad</name>
+      <multi>false</multi>
+    </program>
+    <program>
+      <path>C:\Windows\System32\notepad.exe</path>
+      <name>Notepad</name>
+      <multi>false</multi>
     </program>
     <program>
       <path>C:\Windows\System32\notepad.exe</path>
