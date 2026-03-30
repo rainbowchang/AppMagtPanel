@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <quadsplit>false</quadsplit>
+  <programs>
+    <program>
+      <path>C:\Program Files\Google\Chrome\Application\chrome.exe</path>
+      <params>
+        <param>--new-window</param>
+      </params>
+      <name>Chrome</name>
+      <multi>true</multi>
+    </program>
+    <program>
+      <path>C:\Windows\System32\notepad.exe</path>
+      <name>Notepad</name>
+      <multi>false</multi>
+    </program>
+  </programs>
+</configuration>
