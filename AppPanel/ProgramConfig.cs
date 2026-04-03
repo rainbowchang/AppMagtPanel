@@ -9,6 +9,7 @@ namespace AppPanel
         public string? Icon { get; set; }
         public string? Name { get; set; }
         public bool Multi { get; set; }
+        public bool PrimarySecondary {  get; set; }
 
         public ProgramConfig()
         {

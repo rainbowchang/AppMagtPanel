@@ -17,6 +17,7 @@
 
       <name>谷歌浏览器</name>
       <multi>false</multi>
+      <primarysecondary>true</primarysecondary>
     </program>
     <program>
       <path>C:\code\TRAE\MultiScreen\TestProgram\bin\Release\net8.0-windows\publish\win-x64\TestProgram.exe</path>
@@ -32,21 +33,25 @@
       <path>C:\Windows\System32\notepad.exe</path>
       <name>Notepad</name>
       <multi>false</multi>
+      <primarysecondary>true</primarysecondary>
     </program>
     <program>
       <path>C:\Windows\System32\notepad.exe</path>
       <name>Notepad</name>
       <multi>false</multi>
+      <primarysecondary>true</primarysecondary>
     </program>
     <program>
       <path>C:\Windows\System32\notepad.exe</path>
       <name>Notepad</name>
       <multi>false</multi>
+      <primarysecondary>true</primarysecondary>
     </program>
     <program>
       <path>C:\Windows\System32\notepad.exe</path>
       <name>Notepad</name>
       <multi>false</multi>
+      <primarysecondary>true</primarysecondary>
     </program>
   </programs>
 </configuration>

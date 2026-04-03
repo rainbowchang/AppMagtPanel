@@ -220,11 +220,17 @@ namespace AppPanel
                             config.Name = nameElement.Value;
                         }
 
-                        // 读取multi
+                        // 读取multi PrimarySecondary
                         var multiElement = programElement.Element("multi");
                         if (multiElement != null && bool.TryParse(multiElement.Value, out bool multi))
                         {
                             config.Multi = multi;
+                        }
+
+                        var primarysecondaryElement = programElement.Element("primarysecondary");
+                        if (primarysecondaryElement != null && bool.TryParse(primarysecondaryElement.Value, out bool primarysecondary))
+                        {
+                            config.PrimarySecondary = primarysecondary;
                         }
 
                         // 只添加有path的配置
@@ -428,23 +434,60 @@ namespace AppPanel
                 Process? process = Process.Start(startInfo);
                 if (process != null)
                 {
-                    // 等待窗口创建
-                    process.WaitForInputIdle(2000);
-                    System.Threading.Thread.Sleep(2000);
-                    process.Refresh();
-                    // 尝试多次找到窗口
-                    for (int i = 0; i < 5; i++)
+
+                    if (!config.PrimarySecondary)
                     {
-                        if (process.MainWindowHandle != IntPtr.Zero)
-                        {
-                            Renderers.RemoveShadowOnly(process.MainWindowHandle);
-                            Renderers.SetWindowCornerPreference(process.MainWindowHandle, false);
-                            // 移动窗口到当前AppPanel窗口的位置
-                            MoveWindowToCurrentPanel(process.MainWindowHandle);
-                            break;
-                        }
+                        // 等待窗口创建
+                        process.WaitForInputIdle(2000);
                         System.Threading.Thread.Sleep(2000);
                         process.Refresh();
+                        // 尝试多次找到窗口
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (process.MainWindowHandle != IntPtr.Zero)
+                            {
+                                Renderers.RemoveShadowOnly(process.MainWindowHandle);
+                                Renderers.SetWindowCornerPreference(process.MainWindowHandle, false);
+                                // 移动窗口到当前AppPanel窗口的位置
+                                MoveWindowToCurrentPanel(process.MainWindowHandle);
+                                break;
+                            }
+                            System.Threading.Thread.Sleep(2000);
+                            process.Refresh();
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            string processName = Path.GetFileNameWithoutExtension(config.Path);
+                            Process[] processes = Process.GetProcessesByName(processName);
+                            foreach (Process process01 in processes)
+                            {
+                                try
+                                {
+                                    // 激活窗口并置于顶层
+                                    if (!process01.HasExited && process01.MainWindowHandle != IntPtr.Zero)
+                                    {
+                                        Renderers.RemoveShadowOnly(process01.MainWindowHandle);
+                                        Renderers.SetWindowCornerPreference(process01.MainWindowHandle, false);
+                                        // 移动窗口到当前AppPanel窗口的位置
+                                        MoveWindowToCurrentPanel(process01.MainWindowHandle);
+
+                                        // 激活窗口
+                                        SetWindowPos(process01.MainWindowHandle, (int)WindowPosition.Topmost, 0, 0, 0, 0, (uint)(WindowPositionFlags.NoMove | WindowPositionFlags.NoSize));
+                                        SetWindowPos(process01.MainWindowHandle, (int)WindowPosition.NotTopmost, 0, 0, 0, 0, (uint)(WindowPositionFlags.NoMove | WindowPositionFlags.NoSize));
+                                        ShowWindow(process01.MainWindowHandle, (int)ShowWindowCommands.Restore);
+                                        return;
+                                    }
+                                    System.Threading.Thread.Sleep(2000);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
+                            }
+                        }
                     }
                 }
             }
